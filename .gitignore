@@ -20,6 +20,7 @@ experiments
 *.mat
 *.edf
 *.rec
+*.pdf
 
 
 # External tool builders
