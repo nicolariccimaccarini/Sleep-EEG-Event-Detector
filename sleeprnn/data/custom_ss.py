@@ -37,6 +37,20 @@ PATH_CUSTOM_RELATIVE = "custom"
 CHANNELS_TO_EXCLUDE = {'EEGA1', 'EEGA2', 'Oculo', 'MK', 'ECG', 'EMG1', 'EMG2', 
                        'eega1', 'eega2', 'oculo', 'mk', 'ecg', 'emg1', 'emg2'}
 
+# Default N2 times per recording (in seconds)
+DEFAULT_N2_TIMES = {
+    "ln": [
+        (2095.0, 2288.0),
+        (2349.0, 2632.0)
+    ],
+    "sd": [
+        (607.0, 616.0),
+        (644.0, 677.0),
+        (778.0, 798.0),
+        (855.0, 1248.0)
+    ],
+}
+
 
 class CustomSS(Dataset):
     """Dataset class for custom sleep spindle annotations with multi-channel support.
@@ -72,9 +86,13 @@ class CustomSS(Dataset):
                       Format: {"ln": [(start1, end1), (start2, end2), ...],
                                "sd": [(start1, end1), ...]}
                       Times in seconds.
+                      If None, uses DEFAULT_N2_TIMES.
         """
-        # Tempi N2 (da fornire dall'utente)
-        self.n2_times = n2_times if n2_times is not None else {}
+        # Tempi N2 (usa default se non forniti)
+        if n2_times is not None:
+            self.n2_times = n2_times
+        else:
+            self.n2_times = DEFAULT_N2_TIMES
         
         # Parametri del dataset
         self.page_duration = 20  # Durata pagina in secondi (come MASS)
@@ -120,6 +138,13 @@ class CustomSS(Dataset):
         )
         
         self.global_std = None
+
+        self.test_ids = np.array([sid for sid in self.all_ids if sid.startswith("sd_")])
+        self.train_ids = np.array([sid for sid in self.all_ids if sid.startswith("ln_")])
+        
+        if verbose:
+            print(f"Train IDs ({len(self.train_ids)}): {list(self.train_ids)}")
+            print(f"Test IDs ({len(self.test_ids)}): {list(self.test_ids)}")
 
     def _discover_channels(self):
         """Scopre i canali EEG disponibili in ogni file EDF."""
