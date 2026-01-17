@@ -105,6 +105,13 @@ if __name__ == "__main__":
     params = copy.deepcopy(pkeys.default_params)
     params.update(model_config)
 
+    params[pkeys.MAX_LR_UPDATES]     = 50
+    params[pkeys.EPOCHS_LR_UPDATE]   = 10
+    params[pkeys.MAX_EPOCHS]         = 300
+    params[pkeys.STATS_PER_EPOCH]    = 5
+    params[pkeys.LEARNING_RATE]      = 0.00005
+    params[pkeys.BATCH_SIZE]         = 16
+
     # Data argumentation (scaled by global_std)
     da_unif_noise_uv = pkeys.DEFAULT_AUG_INDEP_UNIFORM_NOISE_INTENSITY_MICROVOLTS
     params[pkeys.AUG_INDEP_UNIFORM_NOISE_INTENSITY] = da_unif_noise_uv / dataset.global_std
@@ -117,9 +124,6 @@ if __name__ == "__main__":
         da_random_waves[da_id].pop("max_amplitude_microvolts")
     params[pkeys.AUG_RANDOM_WAVES_PARAMS]      = da_random_waves
     params[pkeys.AUG_RANDOM_ANTI_WAVES_PARAMS] = pkeys.DEFAULT_AUG_RANDOM_ANTI_WAVES_PARAMS_SPINDLE
-
-    # ----- Epochs reduction for small dimension dataset
-    params[pkeys.MAX_EPOCHS] = 100
 
     # ----- Train
     folder_name = model_config[pkeys.MODEL_VERSION]
