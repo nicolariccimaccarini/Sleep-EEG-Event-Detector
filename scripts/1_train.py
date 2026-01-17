@@ -42,7 +42,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 import numpy as np
 
-project_root = os.path.abspath("..")
+project_root = os.path.abspath(".")
 sys.path.append(project_root)
 
 from sleeprnn.data import utils
