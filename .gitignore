@@ -10,6 +10,7 @@ __pychache__
 datasets
 results
 experiments
+log
 
 
 # Extensions
@@ -21,6 +22,7 @@ experiments
 *.edf
 *.rec
 *.pdf
+*.sh
 
 
 # External tool builders
