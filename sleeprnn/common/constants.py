@@ -9,6 +9,7 @@ CAP_SS_NAME = "cap_ss"
 PINK_NAME = "pink_nn"
 NSRR_SS_NAME = "nsrr_ss"
 CUSTOM_SS_NAME = "custom_ss"
+POP_1_SS_NAME = "pop_1_ss"
 
 # Database split
 TRAIN_SUBSET = "train"

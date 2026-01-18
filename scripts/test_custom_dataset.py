@@ -28,10 +28,10 @@ print("Loading Custom Dataset")
 print("=" * 60)
 
 dataset = load_dataset(
-    constants.CUSTOM_SS_NAME,
+    constants.POP_1_SS_NAME,
     load_checkpoint=False,
     verbose=True,
-    n2_times=n2_times
+    n2_times=None
 )
 
 print("\n" + "=" * 60)

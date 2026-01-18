@@ -18,7 +18,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 import numpy as np
 
-project_root = os.path.abspath("..")
+project_root = os.path.abspath(".")
 sys.path.append(project_root)
 
 from sleeprnn.data import utils
@@ -125,12 +125,12 @@ def get_opt_thr_str(optimal_thr_list, ckpt_folder, grid_folder):
 
 if __name__ == "__main__":
     task_mode = constants.N2_RECORD
-    this_date = "20210716"
+    this_date = datetime.datetime.now().strftime("%Y%m%d")
 
     # Because the NSRR is big, here you can set the number of splits and the split id
     # to consider in this run. This is useful to run the script in parallel.
     # If you want to run the script in a single run, set n_splits = 1 and split_id = 0
-    n_splits = 4
+    n_splits = 100
     split_id = 0
 
     # Prediction using the first 5 checkpoints of v2-time trained on MODA
@@ -138,15 +138,15 @@ if __name__ == "__main__":
 
     source_configs = [
         dict(
-            dataset_name=constants.MODA_SS_NAME,
+            dataset_name=constants.CUSTOM_SS_NAME,
             which_expert=1,
-            strategy="5cv",
+            strategy="fixed",
             n_seeds=1,
-            ckpt_folder="20210529_thesis_indata_5cv_e1_n2_train_moda_ss",
+            ckpt_folder="20260118_standard_train_fixed_e1_n2_train_custom_ss",
         ),
     ]
 
-    nsrr = load_dataset(constants.NSRR_SS_NAME, verbose=False)
+    nsrr = load_dataset(constants.POP_1_SS_NAME, verbose=True)
 
     # ---- Folds of small samples
     subject_ids = nsrr.all_ids

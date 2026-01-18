@@ -13,6 +13,7 @@ from sleeprnn.data.cap_ss import CapSS
 from sleeprnn.data.pink import Pink
 from sleeprnn.data.nsrr_ss import NsrrSS
 from sleeprnn.data.custom_ss import CustomSS
+from sleeprnn.data.pop_1_ss import Pop1SS
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), "../..")
 RESULTS_PATH = os.path.join(PROJECT_ROOT, "results")
@@ -239,6 +240,7 @@ def load_dataset(
         constants.PINK_NAME: Pink,
         constants.NSRR_SS_NAME: NsrrSS,
         constants.CUSTOM_SS_NAME: CustomSS,
+        constants.POP_1_SS_NAME: Pop1SS,
     }
     dataset_class = name_to_class_map[dataset_name]
     dataset = dataset_class(

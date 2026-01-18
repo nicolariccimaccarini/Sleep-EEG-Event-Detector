@@ -1661,4 +1661,19 @@ OPTIMAL_THR_FOR_CKPT_DICT = {
         0.24,
         0.34,
     ],
+    os.path.join(
+        '20260118_standard_train_fixed_e1_n2_train_custom_ss', 'v2_time'
+    ): [
+        0.20,
+        0.20,
+        0.20, 
+        0.20, 
+        0.20, 
+        0.20, 
+        0.20, 
+        0.20, 
+        0.22, 
+        0.20, 
+        0.24
+    ],
 }
