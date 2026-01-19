@@ -130,7 +130,7 @@ if __name__ == "__main__":
     # Because the NSRR is big, here you can set the number of splits and the split id
     # to consider in this run. This is useful to run the script in parallel.
     # If you want to run the script in a single run, set n_splits = 1 and split_id = 0
-    n_splits = 100
+    n_splits = 1
     split_id = 0
 
     # Prediction using the first 5 checkpoints of v2-time trained on MODA
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     # ---- Folds of small samples
     subject_ids = nsrr.all_ids
     n_subjects = len(subject_ids)
-    fold_size = 100
+    fold_size = 2100
     n_folds_nsrr = int(np.ceil(n_subjects / fold_size))
     # Subjects are shuffled so that we can incrementally check the analysis by adding folds
     subject_ids = np.random.RandomState(seed=0).permutation(subject_ids)
