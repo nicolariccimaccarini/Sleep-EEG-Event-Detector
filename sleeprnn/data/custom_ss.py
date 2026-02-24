@@ -111,7 +111,7 @@ class CustomSS(Dataset):
         self.max_ss_duration = 3.0
         
         # Recording base IDs
-        self.recording_ids = ["ln", "sd"]
+        self.recording_ids = ["1", "2", "3", "4"]  # <-- cambiato da ["ln", "sd"]
         
         # Prima, scopri quali canali sono disponibili
         self.available_channels = self._discover_channels()
@@ -143,8 +143,9 @@ class CustomSS(Dataset):
         
         self.global_std = None
 
-        self.test_ids = np.array([sid for sid in self.all_ids if sid.startswith("sd_")])
-        self.train_ids = np.array([sid for sid in self.all_ids if sid.startswith("ln_")])
+        # Imposta train/test IDs (es: 1,2 train; 3,4 test - adatta come preferisci)
+        self.test_ids = np.array([sid for sid in self.all_ids if sid.startswith("3_") or sid.startswith("4_")])
+        self.train_ids = np.array([sid for sid in self.all_ids if sid.startswith("1_") or sid.startswith("2_")])
         
         if verbose:
             print(f"Train IDs ({len(self.train_ids)}): {list(self.train_ids)}")
@@ -222,7 +223,7 @@ class CustomSS(Dataset):
         start_time = time.time()
         
         for i, subject_id in enumerate(self.all_ids):
-            # Parse subject_id: "ln_C3" -> rec_id="ln", channel="C3"
+            # Parse subject_id: "1_EEG C3" -> rec_id="1", channel="EEG C3"
             parts = subject_id.split("_", 1)
             rec_id = parts[0]
             channel = parts[1] if len(parts) > 1 else parts[0]
