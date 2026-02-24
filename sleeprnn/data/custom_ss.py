@@ -39,16 +39,18 @@ CHANNELS_TO_EXCLUDE = {'EEGA1', 'EEGA2', 'Oculo', 'MK', 'ECG', 'EMG1', 'EMG2',
 
 # Default N2 times per recording (in seconds)
 DEFAULT_N2_TIMES = {
-    "ln": [
-        (2095.0, 2288.0),
-        (2349.0, 2632.0)
+    "1": [
+        (1915.0, 2760)
     ],
-    "sd": [
-        (607.0, 616.0),
-        (644.0, 677.0),
-        (778.0, 798.0),
-        (855.0, 1248.0)
+    "2": [
+        (607, 1265)
     ],
+    "3": [
+        (513, 1120)
+    ],
+    "4": [
+        (765, 1326)
+    ]
 }
 
 
@@ -61,11 +63,13 @@ class CustomSS(Dataset):
     Expected directory structure:
         resources/datasets/custom/
             recordings/
-                ln_24-3-23.edf
-                sd_7-02-23.edf
+                1.edf
+                2.edf
+                ...
             annotations/
-                calcluated_start_end_time_ln.csv
-                calculated_start_end_time_sd.csv
+                1.csv
+                2.csv
+                ...
     """
 
     def __init__(
@@ -83,8 +87,8 @@ class CustomSS(Dataset):
             load_checkpoint: Whether to load from checkpoint
             verbose: Print progress
             n2_times: Dict with N2 start/end times for each subject.
-                      Format: {"ln": [(start1, end1), (start2, end2), ...],
-                               "sd": [(start1, end1), ...]}
+                      Format: {"1": [(start1, end1), (start2, end2), ...],
+                               "1": [(start1, end1), ...]}
                       Times in seconds.
                       If None, uses DEFAULT_N2_TIMES.
         """
@@ -112,7 +116,7 @@ class CustomSS(Dataset):
         # Prima, scopri quali canali sono disponibili
         self.available_channels = self._discover_channels()
         
-        # Crea IDs combinando recording + canale (es: "ln_C3", "ln_C4", "sd_C3", etc.)
+        # Crea IDs combinando recording + canale (es: "1_C3", "1_C4", "2_C3", etc.)
         all_ids = []
         for rec_id in self.recording_ids:
             for ch in self.available_channels.get(rec_id, []):
@@ -154,8 +158,10 @@ class CustomSS(Dataset):
         base_path = os.path.join("resources", "datasets", PATH_CUSTOM_RELATIVE)
         
         file_mapping = {
-            "ln": os.path.join(base_path, "recordings", "ln_24-3-23.edf"),
-            "sd": os.path.join(base_path, "recordings", "sd_7-02-23.edf"),
+            "1": os.path.join(base_path, "recordings", "1.edf"),
+            "2": os.path.join(base_path, "recordings", "2.edf"),
+            "3": os.path.join(base_path, "recordings", "3.edf"),
+            "4": os.path.join(base_path, "recordings", "4.edf"),
         }
         
         for rec_id, edf_path in file_mapping.items():
@@ -191,13 +197,21 @@ class CustomSS(Dataset):
         data = {}
         
         file_mapping = {
-            "ln": {
-                "edf": os.path.join(self.dataset_dir, "recordings", "ln_24-3-23.edf"),
-                "annot": os.path.join(self.dataset_dir, "annotations", "calcluated_start_end_time_ln.csv"),
+            "1": {
+                "edf": os.path.join(self.dataset_dir, "recordings", "1.edf"),
+                "annot": os.path.join(self.dataset_dir, "annotations", "1.csv"),
             },
-            "sd": {
-                "edf": os.path.join(self.dataset_dir, "recordings", "sd_7-02-23.edf"),
-                "annot": os.path.join(self.dataset_dir, "annotations", "calculated_start_end_time_sd.csv"),
+            "2": {
+                "edf": os.path.join(self.dataset_dir, "recordings", "2.edf"),
+                "annot": os.path.join(self.dataset_dir, "annotations", "2.csv"),
+            },
+            "3": {
+                "edf": os.path.join(self.dataset_dir, "recordings", "3.edf"),
+                "annot": os.path.join(self.dataset_dir, "annotations", "3.csv"),
+            },
+            "4": {
+                "edf": os.path.join(self.dataset_dir, "recordings", "4.edf"),
+                "annot": os.path.join(self.dataset_dir, "annotations", "4.csv"),
             },
         }
         

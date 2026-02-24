@@ -90,8 +90,8 @@ def get_model(train_path):
     # In particular, we will not restrict at this point the maximum duration, only the min duration and separation
     # Aftwards, it is easy to use a larger min duration or min separation, or to impose a max duration, in analysis
     params[pkeys.SS_MIN_SEPARATION] = 0.3
-    params[pkeys.SS_MIN_DURATION] = 0.3
-    params[pkeys.SS_MAX_DURATION] = None
+    params[pkeys.SS_MIN_DURATION] = 0.5
+    params[pkeys.SS_MAX_DURATION] = 3.0
     weight_ckpt_path = os.path.join(train_path, "model", "ckpt")
     print("Restoring weights from %s" % weight_ckpt_path)
 
