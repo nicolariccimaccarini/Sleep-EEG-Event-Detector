@@ -140,9 +140,9 @@ if __name__ == "__main__":
         dict(
             dataset_name=constants.CUSTOM_SS_NAME,
             which_expert=1,
-            strategy="fixed",
+            strategy="5cv",
             n_seeds=1,
-            ckpt_folder="20260118_standard_train_fixed_e1_n2_train_custom_ss",
+            ckpt_folder="20260224_standard_train_5cv_e1_n2_train_custom_ss",
         ),
     ]
 

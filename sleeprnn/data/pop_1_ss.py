@@ -178,7 +178,6 @@ class Pop1SS(Dataset):
         start_time = time.time()
         
         for i, subject_id in enumerate(self.all_ids):
-            # Parse subject_id: "ACCORSI^NOAH07gen2020_C3" -> patient_id="ACCORSI^NOAH07gen2020", channel="C3"
             parts = subject_id.rsplit("_", 1)
             patient_id = parts[0]
             channel = parts[1] if len(parts) > 1 else parts[0]

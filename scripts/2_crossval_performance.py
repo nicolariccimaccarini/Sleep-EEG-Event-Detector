@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # Indicate the folder inside /results/ to be used.
     # Note that here you only need to provide the 'prefix', since we build the checkpoint folder name as:
     # ckpt_folder = '%s_%s_train_%s' % (ckpt_folder_prefix, task_mode, dataset_name)
-    ckpt_folder_prefix = "20260118_standard_train_fixed_e1"
+    ckpt_folder_prefix = "20260224_standard_train_5cv_e1"
     # You may specify certain runs within that ckpt_folder in grid_folder_list.
     # If None then all runs are used
     grid_folder_list = ["v2_time"]
